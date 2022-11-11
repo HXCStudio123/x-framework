@@ -1,14 +1,5 @@
-function createCompiler() {
-  class Compiler {
-    constructor() {
-      this.hooks = Object.freeze({
-        // {AsyncSeriesHook}是tapable框架提供的事件触发函数：表示异步串行
-        run: new AsyncSeriesHook(['compiler']),
-        emit: new AsyncSeriesHook(['compilation']),
-      })
-    }
-  }
-}
+const { createCompiler } = require("./compiler")
+
 function create(options) {
   let compiler
   if (Array.isArray(options)) {
@@ -24,5 +15,6 @@ function create(options) {
 function webpack(options) {
   // 创建compiler
   const { compiler } = create(options)
+  return compiler
 }
 module.exports = { webpack }

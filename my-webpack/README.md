@@ -1,6 +1,6 @@
 # webpack源码解析
 
-webpack基于tapable框架
+webpack基于tapable框架（伪代码）
 
 ## 关键环节
 
@@ -18,4 +18,3 @@ webpack基于tapable框架
 ```node
 
 ```
-
