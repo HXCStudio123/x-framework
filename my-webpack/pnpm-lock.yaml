@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   ejs: ^3.1.8
+  tapable: ^2.2.1
   webpack: ^5.75.0
   webpack-cli: ^4.10.0
 
@@ -9,6 +10,9 @@ dependencies:
   ejs: 3.1.8
   webpack: 5.75.0_webpack-cli@4.10.0
   webpack-cli: 4.10.0_webpack@5.75.0
+
+devDependencies:
+  tapable: 2.2.1
 
 packages:
 
@@ -749,9 +753,8 @@ packages:
     dev: false
 
   /tapable/2.2.1:
-    resolution: {integrity: sha1-GWenPvQGCoLxKrlq+G1S/bdu7KA=, tarball: tapable/download/tapable-2.2.1.tgz}
+    resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
-    dev: false
 
   /terser-webpack-plugin/5.3.6_webpack@5.75.0:
     resolution: {integrity: sha1-VZCuwxqjxvdxzhsazKYGOeqzGVw=, tarball: terser-webpack-plugin/download/terser-webpack-plugin-5.3.6.tgz}

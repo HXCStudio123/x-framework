@@ -17,5 +17,8 @@
     "ejs": "^3.1.8",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "tapable": "^2.2.1"
   }
 }
