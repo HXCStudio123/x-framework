@@ -1,0 +1,2 @@
+/*! For license information please see entry2.bundle.js.LICENSE.txt */
+(()=>{var __webpack_modules__={"./src/main1.js":()=>{eval("console.log(2);\n\n//# sourceURL=webpack://my-webpack/./src/main1.js?")}},__webpack_exports__={};__webpack_modules__["./src/main1.js"]()})();

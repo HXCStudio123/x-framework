@@ -1,4 +1,5 @@
-const {AsyncSeriesHook} = 'tapable'
+const { AsyncSeriesHook } = 'tapable'
+import { Compilation } from './compilation'
 /**
  * webpack 是基于tapable事件流，tapable本质是发布订阅，可以使webpack在特定的时间节点触发相应的hook
  * 在webpack整个生命周期中传递的一直是compiler对象，
@@ -12,19 +13,6 @@ class Compiler {
       emit: new AsyncSeriesHook(['compilation']),
     })
   }
-  // 创建模块（即source->chunk的中间态），分析模块的依赖关系
-  buildMoudle() {
-    // 1. 从入口开始分析模块间的依赖关系，构建依赖树
-    // 2. 分析的过程中 使用parse解析模块，
-    // 3. 递归处理依赖节点
-  }
-  // 拿到模块的依赖后，递归解析（AST语法解析）
-  parse() {
-    // ast
-    // parse
-    // traverse
-    // 分析的过程中就可以使用loader进行解析
-  }
   // 发送
   emit() {
     // 确认输出文件
@@ -37,35 +25,41 @@ class Compiler {
     console.log('执行自定义webpack')
     // run的时候开始分析构建模块
     // this.buildMoudle()
-    this.hooks.beforeRun.callAsync(this, err=>{
-      if(err) return
-      this.hooks.run.callAsync(this, err=>{
-        if(err) return
+    this.hooks.beforeRun.callAsync(this, (err) => {
+      if (err) return
+      this.hooks.run.callAsync(this, (err) => {
+        if (err) return
         this.complie(this.buildMoudle)
       })
     })
   }
   complie(callback) {
     const params = ''
-    this.hooks.beforeCompile.callAsync(params, err => {
-      this.hooks.compile.call(params);
-      this.hooks.make.callAsync('', err=> {
-        
-      })
+    const compilation = new Compilation(params)
+    this.hooks.beforeCompile.callAsync(params, (err) => {
+      this.hooks.compile.call(params)
+      // webpack核心流程make
+      /**
+       * make阶段的主要目标是
+       * 根据entry配置找到入口模块，一次递归所有依赖项，生成依赖树，将递归的每个模块交给不同的loader处理
+       *
+       * 由于webpack是基于发布订阅，因此在内部自定义了部分内部plugin做事件处理
+       */
+      this.hooks.make.callAsync(compilation, (err) => {})
     })
   }
 }
 export function createCompiler(options) {
   const compiler = new Compiler(options.context, options)
   // 开发插件使用插件调用方法apply方法
-  if(Array.isArray(options.plugins)) {
-    options.plugins.forEach(plugin => {
-      if(typeof plugin === 'function') {
+  if (Array.isArray(options.plugins)) {
+    options.plugins.forEach((plugin) => {
+      if (typeof plugin === 'function') {
         plugin.call(compiler, compiler)
       } else {
         plugin.apply(compiler)
       }
-    });
+    })
   }
   return compiler
 }
